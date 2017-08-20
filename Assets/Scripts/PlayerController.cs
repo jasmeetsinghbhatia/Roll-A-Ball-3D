@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody> ();
 		count = 0;
-		SetCountText();
+		SetCountText(count);
 		winText.text = "";
 	}
 
@@ -36,18 +36,23 @@ public class PlayerController : MonoBehaviour {
 		{
 			other.gameObject.SetActive(false);
 			count = count + 1;
-			SetCountText();
-			
+			SetCountText(count);
+
 		}
 	}
 
-	void SetCountText()
+	void SetCountText(int cube_count)
 	{
-		countCubes.text = "Cubes collected: " + count.ToString ();
+		countCubes.text = "Cubes collected: " + cube_count.ToString ();
 		if (count >= 12) {
-			winText.text = "Game Over";
+			SetWinText ();
 		}
 			
+	}
+
+	void SetWinText()
+	{
+		winText.text = "Game Over";
 	}
 
 }
