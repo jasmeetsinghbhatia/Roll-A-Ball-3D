@@ -131,9 +131,17 @@
 
           var collision_points = (yield* Get("cordinates","/q/scene/Player.PlayerController.cordinatesList"));
           cordinates = collision_points.data[0];
-          for (var i = cordinates.length - 1; i >= 0; i--) {
-            Log("The cordinates are: "+cordinates[i]);
+          if(cordinates.length != 0){
+            for (var i = cordinates.length - 1; i >= 0; i--) {
+              Log("The cordinates are: "+cordinates[i]);
+            } 
+            Log("Test Succsseful");
           }
+          else{
+            Log("Test Failed : Check if a list of cordinates exists");
+            Log("/q/scene/Player.PlayerController.cordinatesList");
+          }
+          
         } catch(e) {
           Log( "ERROR: " + e.toString() );
         }

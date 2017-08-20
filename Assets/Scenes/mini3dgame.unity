@@ -349,6 +349,7 @@ MonoBehaviour:
   nav: {fileID: 0}
   target: {x: 0, y: 0, z: 0}
   updateOn: 1
+  isReady: 0
 --- !u!195 &30605705
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2291,7 +2292,7 @@ GameObject:
   - component: {fileID: 2087296989}
   - component: {fileID: 2087296988}
   m_Layer: 0
-  m_Name: control ball
+  m_Name: manual control ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
