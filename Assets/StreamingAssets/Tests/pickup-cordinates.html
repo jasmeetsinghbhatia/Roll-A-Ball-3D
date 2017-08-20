@@ -118,20 +118,30 @@
           timeout = setTimeout( onTimeOut, 5000 );
           yield; // wait for sceneLoaded event
           clearTimeout( timeout );
+      
           Log( "Scene reloaded, finding cordinates of all pickups hit by the ball" );
-          // Getting all pickups
-          var pickups_y = yield* Get("cordinates","/q/scene//[tag='Pickup'].Transform.position.y");
-          var success = true;
-          for( var i in pickups_y.data){
-            if(pickups_y.data[i] != 0.5){
-              Log("Test Failed: cordinates for Pickup not found");
-              success = false;
-            }
-          }
-         if(success){
-          Log("Test Succesful");
-         }
+          Log( "Please wait while all collisions are being recorded");
 
+          var isready = false;
+          while(isready === false){
+            var status = (yield* Get("isReady","/q/scene/Player.MoveRandomly.isReady"));
+            var isready = status.data[0];
+          }
+          
+
+          var collision_points = (yield* Get("cordinates","/q/scene/Player.PlayerController.cordinatesList"));
+          cordinates = collision_points.data[0];
+          if(cordinates.length != 0){
+            for (var i = cordinates.length - 1; i >= 0; i--) {
+              Log("The cordinates are: "+cordinates[i]);
+            } 
+            Log("Test Succsseful");
+          }
+          else{
+            Log("Test Failed : Check if a list of cordinates exists");
+            Log("/q/scene/Player.PlayerController.cordinatesList");
+          }
+          
         } catch(e) {
           Log( "ERROR: " + e.toString() );
         }

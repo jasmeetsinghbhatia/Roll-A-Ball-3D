@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public Text countCubes;
 	public Text winText;
+	public Text CollisionPoint;
+	public List<string> cordinatesList = new List<string>();
 
 	private Rigidbody rb;
 	private int count;
@@ -37,7 +39,8 @@ public class PlayerController : MonoBehaviour {
 			other.gameObject.SetActive(false);
 			count = count + 1;
 			SetCountText(count);
-
+			CollisionPoint.text="Collision point: " + other.transform.position.ToString();
+			cordinatesList.Add(CollisionPoint.text);
 		}
 	}
 
@@ -54,5 +57,4 @@ public class PlayerController : MonoBehaviour {
 	{
 		winText.text = "Game Over";
 	}
-
 }
