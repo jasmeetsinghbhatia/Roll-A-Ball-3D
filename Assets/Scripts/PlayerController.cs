@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour {
 	public Text winText;
 	public Text CollisionPoint;
 	public List<string> cordinatesList = new List<string>();
+	public float velocityBall;
+	public Text velocityBallText;
 
 	private Rigidbody rb;
 	private int count;
@@ -20,6 +22,11 @@ public class PlayerController : MonoBehaviour {
 		count = 0;
 		SetCountText(count);
 		winText.text = "";
+	}
+
+	void Update(){
+		velocityBall = rb.velocity.magnitude;
+		velocityBallText.text = "Speed of the ball is: " + velocityBall.ToString();
 	}
 
 	void FixedUpdate ()
