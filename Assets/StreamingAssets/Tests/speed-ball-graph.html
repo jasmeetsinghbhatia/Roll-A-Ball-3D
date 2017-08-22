@@ -14,6 +14,7 @@
       body {
         margin-top: 75px;
       }
+
       .graph .axis {
           stroke-width: 1;
       }
@@ -30,7 +31,7 @@
       }
       .graph .group {
           fill: none;
-          stroke: black;
+          stroke: url(#line-gradient);
           stroke-width: 1.5;
       }
   </style>
@@ -117,6 +118,23 @@
             .attr( 'class', 'y axis' )
             .attr( 'transform', 'translate(50,0)' )
             .call( y.axis = d3.svg.axis().scale(y).orient('left') )
+
+            svg.append("linearGradient")
+               .attr("id", "line-gradient")
+               .attr("gradientUnits", "userSpaceOnUse")
+               .attr("x1", 0).attr("y1", y(0))
+               .attr("x2", 0).attr("y2", y(2))
+               .selectAll("stop")
+               .data(
+                      [
+                       {offset: "100%", color: "blue"},
+                       {offset: "100%", color: "red"},
+                      ]
+                    )
+                .enter().append("stop")
+                        .attr("offset", function(d) { return d.offset; })
+                        .attr("stop-color", function(d) { return d.color; });
+
         var paths = svg.append('g')
         // create graph
         var data  = [0]
@@ -142,13 +160,6 @@
               axis.call( x.axis )
             }
             graph.attr( 'd', line )
-                        
-            if(velocityBall>2.0){
-              graph.style('stroke', 'red')
-            }
-            else{
-              graph.style('stroke', 'blue')
-            }
         }
     </script>
 
